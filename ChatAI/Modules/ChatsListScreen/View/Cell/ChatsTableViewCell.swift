@@ -20,6 +20,7 @@ final class ChatsTableViewCell: UITableViewCell, Reusable {
         let obj = UIView()
         obj.layer.cornerRadius = 28.sizeW
         obj.clipsToBounds = true
+        // test
         obj.backgroundColor = .purple
         return obj
     }()
@@ -46,6 +47,11 @@ final class ChatsTableViewCell: UITableViewCell, Reusable {
         obj.textColor = .white
         return obj
     }()
+    
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+        backgroundColor = selected ? .appAntiFlashWhiteYankeesBlue : .clear
+    }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -108,5 +114,6 @@ extension ChatsTableViewCell {
 extension ChatsTableViewCell {
     private func setupCell() {
         separatorInset = UIEdgeInsets(top: 0, left: 84.sizeW, bottom: 0, right: 19.sizeW)
+        selectionStyle = .none
     }
 }

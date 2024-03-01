@@ -16,8 +16,13 @@ class ChatsListViewController: UIViewController {
         view = mainView
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        deselectRow()
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
-       super.viewDidAppear(animated)
+        super.viewDidAppear(animated)
         mainView.addLeftPaddingToSearchField()
     }
     
@@ -27,8 +32,8 @@ class ChatsListViewController: UIViewController {
     }
     
     private func initViewController() {
-        setupTableView()
         setupSearchField()
+        setupTableView()
     }
 }
 
@@ -44,6 +49,13 @@ extension ChatsListViewController {
     }
 }
 
+extension ChatsListViewController {
+    private func openChat() {
+        let chatViewController = ChatViewController()
+        navigationController?.pushViewController(chatViewController, animated: true)
+    }
+}
+
 extension ChatsListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return Chat.example.count
@@ -53,6 +65,10 @@ extension ChatsListViewController: UITableViewDelegate, UITableViewDataSource {
         let cell: ChatsTableViewCell = tableView.dequeueReusableCell(for: indexPath)
         cell.model = chats[indexPath.row]
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        openChat()
     }
 }
 
@@ -68,6 +84,14 @@ extension ChatsListViewController: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         if let text = textField.text {
             mainView.searchPlaceholderLabel.isHidden = !text.isEmpty
+        }
+    }
+}
+
+extension ChatsListViewController {
+    private func deselectRow() {
+        if let selectedIndexPath = mainView.tableView.indexPathForSelectedRow {
+            mainView.tableView.deselectRow(at: selectedIndexPath, animated: true)
         }
     }
 }

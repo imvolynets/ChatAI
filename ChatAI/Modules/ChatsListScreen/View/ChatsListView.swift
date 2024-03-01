@@ -82,7 +82,7 @@ class ChatsListView: UIView {
     
     let addNewChatButton: UIButton = {
         let obj = UIButton()
-        obj.setImage(UIImage(resource: .newChatButton), for: .normal)
+        obj.setImage(UIImage(resource: .newChatButtonIcon), for: .normal)
         obj.tintColor = .purple
         return obj
     }()
