@@ -11,7 +11,7 @@ import UIKit
 
 class FlexibleTextView: UITextView {
     var maxHeight: CGFloat = 0.0
-    private let placeholderTextView: UITextView = {
+    let placeholderTextView: UITextView = {
         let obj = UITextView()
         obj.backgroundColor = .clear
         obj.font = .systemFont(ofSize: 16.sizeW, weight: .regular)
@@ -40,11 +40,6 @@ class FlexibleTextView: UITextView {
         isScrollEnabled = false
         backgroundColor = .clear
         autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(UITextInputDelegate.textDidChange(_:)),
-            name: UITextView.textDidChangeNotification,
-            object: self)
         placeholderTextView.font = font
         addSubview(placeholderTextView)
         
@@ -70,9 +65,6 @@ class FlexibleTextView: UITextView {
             placeholderTextView.contentInset = contentInset
         }
     }
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-    }
     override var intrinsicContentSize: CGSize {
         var size = super.intrinsicContentSize
         if size.height == UIView.noIntrinsicMetric {
@@ -90,10 +82,5 @@ class FlexibleTextView: UITextView {
             isScrollEnabled = false
         }
         return size
-    }
-    @objc
-    private func textDidChange(_ note: Notification) {
-        invalidateIntrinsicContentSize()
-        placeholderTextView.isHidden = !text.isEmpty
     }
 }

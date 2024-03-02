@@ -10,5 +10,4 @@ import Foundation
 enum SenderRole {
     case assistant
     case user
-    case system
 }

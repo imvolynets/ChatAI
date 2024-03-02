@@ -66,7 +66,7 @@ class ChatView: UIView {
     let tableView: UITableView = {
         let obj = UITableView()
         obj.backgroundColor = .clear
-        obj.contentInset = UIEdgeInsets(top: 65.sizeH, left: 0, bottom: 0, right: 0)
+        obj.contentInset = UIEdgeInsets(top: 75.sizeH, left: 0, bottom: 0, right: 0)
         obj.separatorStyle = .none
         obj.keyboardDismissMode = .interactive
         return obj

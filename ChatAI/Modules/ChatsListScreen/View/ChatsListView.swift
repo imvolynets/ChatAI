@@ -62,6 +62,7 @@ class ChatsListView: UIView {
     
     let tableView: UITableView = {
         let obj = UITableView()
+        obj.backgroundColor = .clear
         obj.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 60.sizeH, right: 0)
         return obj
     }()

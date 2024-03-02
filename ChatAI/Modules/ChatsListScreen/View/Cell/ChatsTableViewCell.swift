@@ -113,6 +113,7 @@ extension ChatsTableViewCell {
 
 extension ChatsTableViewCell {
     private func setupCell() {
+        backgroundColor = .clear
         separatorInset = UIEdgeInsets(top: 0, left: 84.sizeW, bottom: 0, right: 19.sizeW)
         selectionStyle = .none
     }
