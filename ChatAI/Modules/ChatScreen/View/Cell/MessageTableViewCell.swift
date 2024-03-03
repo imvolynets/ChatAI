@@ -50,14 +50,14 @@ class MessageTableViewCell: UITableViewCell, Reusable {
     }
     
     private func makeConstraints(sentBy: SenderRole) {
-        bubbleMessageView.snp.makeConstraints { make in
+        bubbleMessageView.snp.remakeConstraints { make in
             make.trailing.equalTo(content.snp.trailing).offset(sentBy == .user ? 16.sizeW : 12.sizeW)
             make.leading.equalTo(content.snp.leading).offset(sentBy == .user ? -12.sizeW : -16.sizeW)
             make.top.equalTo(content.snp.top).inset(-10.sizeW)
             make.bottom.equalTo(content.snp.bottom).inset(-10.sizeW)
         }
         
-        content.snp.makeConstraints { make in
+        content.snp.remakeConstraints { make in
             make.bottom.equalTo(contentView.snp.bottom).offset(-14.sizeH)
             make.top.equalTo(contentView.snp.top).offset(14.sizeH)
             

@@ -160,7 +160,9 @@ extension ChatsListViewController: UITableViewDelegate, UITableViewDataSource {
 
 extension ChatsListViewController: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        mainView.searchPlaceholderLabel.isHidden = true
+        if textField == mainView.searchField {
+            mainView.searchPlaceholderLabel.isHidden = true
+        }
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
