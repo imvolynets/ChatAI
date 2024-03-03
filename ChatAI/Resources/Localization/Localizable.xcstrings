@@ -33,6 +33,46 @@
           }
         }
       }
+    },
+    "create_chat_alert_cancel_btn" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancel"
+          }
+        }
+      }
+    },
+    "create_chat_alert_create_btn" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create"
+          }
+        }
+      }
+    },
+    "create_chat_alert_desc" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Maximun 15 characters"
+          }
+        }
+      }
+    },
+    "create_chat_alert_title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enter chat's name"
+          }
+        }
+      }
     }
   },
   "version" : "1.0"
