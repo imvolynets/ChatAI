@@ -107,12 +107,12 @@ extension ChatsListViewController {
                 return
             }
             
-            if let newChatName = textField.text?.trimmingCharacters(in: .whitespacesAndNewlines) {
+            if let _ = textField.text?.trimmingCharacters(in: .whitespacesAndNewlines) {
                 textField.text = ""
                 self.openChat()
             }
         })
-        
+         
         addChatAlert.addAction(UIAlertAction(
             title: String(localized: "create_chat_alert_cancel_btn"),
             style: .cancel,
@@ -137,7 +137,7 @@ extension ChatsListViewController {
         
         if let alertController = presentedViewController as? UIAlertController {
             let textCount = textField.text?.count ?? 0
-            alertController.actions.first?.isEnabled = textCount <= 15 && textCount > 0
+            alertController.actions.first?.isEnabled = textCount <= Constants.UI.maxChatNameSymbols && textCount > 0
         }
     }
 }
@@ -179,8 +179,11 @@ extension ChatsListViewController: UITextFieldDelegate {
                    replacementString string: String) -> Bool {
         if range.location == 0 && string == " " {
             return false
+        } else if range.location <= Constants.UI.maxSearchSymbols {
+            return true
         }
-        return true
+        
+        return false
     }
 }
 
