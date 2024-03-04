@@ -23,9 +23,41 @@ class ChatViewController: UIViewController {
     
     private func initViewController() {
         setSlideBackFunctionality()
-        setupTableView()
+        addObservers()
         setupButtons()
         setupTextView()
+        setupTableView()
+        
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else {
+                return
+            }
+            self.mainView.tableView.scrollToBottom(animated: false)
+        }
+    }
+    
+    deinit {
+        removeObservers()
+        print("chatviewcontroller deinit")
+    }
+}
+
+extension ChatViewController {
+    private func addObservers() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(didKeyboardShow(_:)),
+            name: UIResponder.keyboardWillShowNotification, object: nil)
+    }
+    private func removeObservers() {
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+    }
+}
+
+extension ChatViewController {
+    @objc
+    private func didKeyboardShow(_ notification: Notification) {
+        mainView.tableView.scrollToBottom(animated: false)
     }
 }
 
@@ -41,7 +73,9 @@ extension ChatViewController {
     private func setupTableView() {
         mainView.tableView.delegate = self
         mainView.tableView.dataSource = self
-        mainView.tableView.registerReusableCell(MessageTableViewCell.self)
+//        mainView.tableView.registerReusableCell(MessageTableViewCell.self)
+        mainView.tableView.registerReusableCell(UserMessageTableViewCell.self)
+        mainView.tableView.registerReusableCell(BotMessageTableViewCell.self)
     }
 }
 
@@ -68,10 +102,13 @@ extension ChatViewController: UITextViewDelegate {
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        guard range.location != 0 else {
+        if range.location == 0 {
             return CheckForEmpty.checkForEmpty(textView: textView, range: range, text: text)
+        } else if range.location <= Constants.UI.maxMessageSymbols {
+            return true
         }
-        return true
+        
+        return false
     }
 }
 
@@ -81,10 +118,15 @@ extension ChatViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        print("+")
-
-        let cell: MessageTableViewCell = tableView.dequeueReusableCell(for: indexPath)
-        cell.model = messages[indexPath.row]
-        return cell
+        switch messages[indexPath.row].role {
+        case .user:
+            let cell: UserMessageTableViewCell = tableView.dequeueReusableCell(for: indexPath)
+            cell.model = messages[indexPath.row]
+            return cell
+        case .assistant:
+            let cell: BotMessageTableViewCell = tableView.dequeueReusableCell(for: indexPath)
+            cell.model = messages[indexPath.row]
+            return cell
+        }
     }
 }

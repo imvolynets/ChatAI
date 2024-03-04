@@ -9,7 +9,7 @@ import Foundation
 import SnapKit
 import UIKit
 
-class ChatView: UIView {
+class ChatView: UIView {    
     let blurView: UIVisualEffectView = {
         let blurEffect = UIBlurEffect(style: .regular)
         let obj = UIVisualEffectView(effect: blurEffect)
@@ -110,9 +110,9 @@ class ChatView: UIView {
     
     private func setup() {
         setUpBackgroundColor()
-    
+        
         addSubview(tableView)
-
+        
         addSubview(blurView)
         addSubview(borderBlurView)
         

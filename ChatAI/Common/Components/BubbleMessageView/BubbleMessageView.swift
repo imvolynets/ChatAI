@@ -17,6 +17,7 @@ class BubbleMessageView: UIView {
     }
     
     override func draw(_ rect: CGRect) {
+        bezierPath = UIBezierPath()
         guard let bezierPath = bezierPath else {return}
         
         if sentBy == .user {
