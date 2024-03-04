@@ -240,7 +240,7 @@ extension ChatsListViewController: UITextFieldDelegate {
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        if let text = textField.text {
+        if let text = textField.text, textField == mainView.searchField {
             mainView.searchPlaceholderLabel.isHidden = !text.isEmpty
         }
     }

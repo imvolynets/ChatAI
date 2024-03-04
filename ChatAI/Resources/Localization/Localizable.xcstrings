@@ -45,6 +45,28 @@
         }
       }
     },
+    "chat_status_online" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "online"
+          }
+        }
+      }
+    },
+    "chat_status_typing" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "typing"
+          }
+        }
+      }
+    },
     "chats_list_header_title" : {
       "extractionState" : "manual",
       "localizations" : {

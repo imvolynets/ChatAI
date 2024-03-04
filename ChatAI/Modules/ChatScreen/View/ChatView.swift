@@ -51,7 +51,6 @@ class ChatView: UIView {
         let obj = UILabel()
         obj.font = .Poppins.semiBold(size: 19).font
         obj.textColor = .white
-        obj.text = "A" // test
         return obj
     }()
     
@@ -59,7 +58,7 @@ class ChatView: UIView {
         let obj = UILabel()
         obj.font = .systemFont(ofSize: 12.sizeW, weight: .regular)
         obj.textColor = .appMediumSlateBlueWhite
-        obj.text = "online" // test
+        obj.text = "chat_status_online".localized // test
         return obj
     }()
     

@@ -107,7 +107,9 @@ extension ChatViewController {
         let userMessage = Message(id: UUID().uuidString, content: userText, role: .user)
         DBService.shared.addUserMessage(chatId: chat.id, userMessage: userMessage)
         mainView.tableView.insertRow(row: chat.messages.count - 1, animation: .right)
-                
+        mainView.sendButton.isEnabled = false
+        mainView.messageTextView.isEditable = false
+        mainView.statusLabel.text = "chat_status_typing".localized
         APIService.shared.sendStreamMessage(messages: Array(chat.messages)).responseStreamString { [weak self] stream in
             guard let self = self else {
                 return
@@ -116,6 +118,7 @@ extension ChatViewController {
             case .stream(let response):
                 switch response {
                 case .success(let string):
+                    print(string)
                     let streamResponse = ChatService.shared.parseStreamData(string)
                     streamResponse.forEach { newMessageResponse in
                         guard let messageContent = newMessageResponse.choices.first?.delta.content else {
@@ -147,7 +150,10 @@ extension ChatViewController {
                 case .failure(_):
                     print("Something got wrong")
                 }
-            case .complete(_):
+            case .complete(let data):
+                mainView.statusLabel.text = "chat_status_online".localized
+                mainView.messageTextView.isEditable = true
+                print(data.response?.statusCode)
                 print("completed")
             }
         }
