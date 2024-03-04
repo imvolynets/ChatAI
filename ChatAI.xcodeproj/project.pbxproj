@@ -21,7 +21,7 @@
 		6D62C1042B95E96600868579 /* AlamofireDynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 6D62C1032B95E96600868579 /* AlamofireDynamic */; };
 		6D62C1062B95FE6900868579 /* UITableView+insertRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D62C1052B95FE6900868579 /* UITableView+insertRow.swift */; };
 		6D62C1092B95FFFE00868579 /* ChatService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D62C1082B95FFFE00868579 /* ChatService.swift */; };
-		6D62C10B2B960A4A00868579 /* UITabelView+reloadChats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D62C10A2B960A4A00868579 /* UITabelView+reloadChats.swift */; };
+		6D62C10B2B960A4A00868579 /* UITableView+reloadChats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D62C10A2B960A4A00868579 /* UITableView+reloadChats.swift */; };
 		6D6864D82B91CA0F005CC1C1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D6864D72B91CA0F005CC1C1 /* AppDelegate.swift */; };
 		6D6864DC2B91CA0F005CC1C1 /* ChatsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D6864DB2B91CA0F005CC1C1 /* ChatsListViewController.swift */; };
 		6D6864E12B91CA11005CC1C1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6D6864E02B91CA11005CC1C1 /* Assets.xcassets */; };
@@ -57,7 +57,7 @@
 		6D62C0FE2B95E2A300868579 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		6D62C1052B95FE6900868579 /* UITableView+insertRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+insertRow.swift"; sourceTree = "<group>"; };
 		6D62C1082B95FFFE00868579 /* ChatService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatService.swift; sourceTree = "<group>"; };
-		6D62C10A2B960A4A00868579 /* UITabelView+reloadChats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITabelView+reloadChats.swift"; sourceTree = "<group>"; };
+		6D62C10A2B960A4A00868579 /* UITableView+reloadChats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+reloadChats.swift"; sourceTree = "<group>"; };
 		6D6864D42B91CA0F005CC1C1 /* ChatAI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChatAI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D6864D72B91CA0F005CC1C1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6D6864DB2B91CA0F005CC1C1 /* ChatsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsListViewController.swift; sourceTree = "<group>"; };
@@ -120,7 +120,7 @@
 			children = (
 				6D62C0E72B95B1AB00868579 /* UITableView+scrollToBottom.swift */,
 				6D62C1052B95FE6900868579 /* UITableView+insertRow.swift */,
-				6D62C10A2B960A4A00868579 /* UITabelView+reloadChats.swift */,
+				6D62C10A2B960A4A00868579 /* UITableView+reloadChats.swift */,
 			);
 			path = UITableView;
 			sourceTree = "<group>";
@@ -558,7 +558,7 @@
 				6D62C0FF2B95E2A300868579 /* APIService.swift in Sources */,
 				6D62C0E22B93BDB800868579 /* BubbleMessageView.swift in Sources */,
 				6D6865132B91DD7C005CC1C1 /* UIFont+poppins.swift in Sources */,
-				6D62C10B2B960A4A00868579 /* UITabelView+reloadChats.swift in Sources */,
+				6D62C10B2B960A4A00868579 /* UITableView+reloadChats.swift in Sources */,
 				6D6864D82B91CA0F005CC1C1 /* AppDelegate.swift in Sources */,
 				6D62C0E52B95AE4800868579 /* Constants.swift in Sources */,
 			);

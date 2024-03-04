@@ -1,5 +1,5 @@
 //
-//  UITabelView.swift
+//  UITableView+reloadChats.swift
 //  ChatAI
 //
 //  Created by Volynets Vladislav on 04.03.2024.

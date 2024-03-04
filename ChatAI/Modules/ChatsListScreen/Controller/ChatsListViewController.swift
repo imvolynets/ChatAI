@@ -188,6 +188,42 @@ extension ChatsListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         openChat(existedChat: filteredChats?[indexPath.row])
     }
+    
+    func tableView(_ tableView: UITableView, 
+                   trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let delete = UIContextualAction(style: .destructive, title: "Delete") { _, _, completionHandler in 
+            let confirmAlert = UIAlertController(
+                title: "confirm_delete_alert_title".localized,
+                message: "",
+                preferredStyle: .alert)
+            
+            confirmAlert.addAction(UIAlertAction(
+                title: "confirm_delete_alert_confirm".localized,
+                style: .default
+            ) { _ in
+                if let chat = self.filteredChats?[indexPath.row] {
+                    DBService.shared.deleteChat(chat: chat)
+                }
+                
+                DispatchQueue.main.async { [weak self] in
+                    guard let self = self else {
+                        return
+                    }
+                    self.mainView.tableView.deleteRows(at: [indexPath], with: .fade)
+                }
+            })
+            confirmAlert.addAction(UIAlertAction(title: "confirm_delete_alert_cancel".localized,
+                                                 style: .cancel) { _ in
+                completionHandler(true)
+            })
+            
+            self.present(confirmAlert, animated: true, completion: nil)
+        }
+        
+        let swipeAction = UISwipeActionsConfiguration(actions: [delete])
+        swipeAction.performsFirstActionWithFullSwipe = false
+        return swipeAction
+    }
 }
 
 extension ChatsListViewController: UITextFieldDelegate {
