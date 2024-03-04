@@ -196,3 +196,14 @@ extension ChatView {
         backgroundColor = .appAntiFlashWhiteDarkGunmetal
     }
 }
+
+extension ChatView {
+    func handle(model: Chat?) {
+        guard let model else {
+            return
+        }
+        chatName.text = model.chatName
+        avatarView.backgroundColor = UIColor(hexString: model.avatarColor)
+        firstLetterName.text = model.chatName.first?.uppercased()
+    }
+}

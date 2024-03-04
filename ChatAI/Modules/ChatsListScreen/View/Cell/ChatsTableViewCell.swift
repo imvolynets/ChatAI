@@ -20,8 +20,6 @@ final class ChatsTableViewCell: UITableViewCell, Reusable {
         let obj = UIView()
         obj.layer.cornerRadius = 28.sizeW
         obj.clipsToBounds = true
-        // test
-        obj.backgroundColor = .purple
         return obj
     }()
     
@@ -108,6 +106,7 @@ extension ChatsTableViewCell {
         chatName.text = model.chatName
         lastMessage.text = model.lastMessage
         firstLetterName.text = model.chatName.first?.uppercased()
+        avatarView.backgroundColor = UIColor(hexString: model.avatarColor)
     }
 }
 

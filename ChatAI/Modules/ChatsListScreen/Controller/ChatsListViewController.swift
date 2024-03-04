@@ -6,14 +6,24 @@
 //
 
 import Foundation
+import Realm
+import RealmSwift
 import UIKit
 
 class ChatsListViewController: UIViewController {
     private let mainView = ChatsListView()
     private var addChatAlert: UIAlertController?
     
+    private var allChats: Results<Chat>?
+    private var filteredChats: Results<Chat>?
+    
     override func loadView() {
         view = mainView
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setFilteredChats()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -32,6 +42,7 @@ class ChatsListViewController: UIViewController {
     }
     
     private func initViewController() {
+        loadChatsFromDataBase()
         setupSearchField()
         setupTableView()
         setupButtons()
@@ -39,9 +50,24 @@ class ChatsListViewController: UIViewController {
 }
 
 extension ChatsListViewController {
+    private func setFilteredChats() {
+        if let text = mainView.searchField.text, text.isEmpty {
+            filteredChats = allChats
+        }
+        self.mainView.tableView.reloadChats()
+    }
+}
+
+extension ChatsListViewController {
+    private func loadChatsFromDataBase() {
+        allChats = DBService.shared.fetchChats()
+    }
+}
+
+extension ChatsListViewController {
     private func setupTableView() {
-//        mainView.tableView.dataSource = self
-//        mainView.tableView.delegate = self
+        mainView.tableView.dataSource = self
+        mainView.tableView.delegate = self
         mainView.tableView.registerReusableCell(ChatsTableViewCell.self)
     }
     
@@ -69,8 +95,15 @@ extension ChatsListViewController {
 }
 
 extension ChatsListViewController {
-    private func openChat() {
+    private func openChat(existedChat: Chat? = nil, chatName: String = "") {
         let chatViewController = ChatViewController()
+        
+        if let existedChat {
+            chatViewController.chat = allChats?.first(where: { $0.id == existedChat.id })
+        } else {
+            chatViewController.chat = Chat(chatName: chatName)
+        }
+        
         navigationController?.pushViewController(chatViewController, animated: true)
     }
 }
@@ -88,7 +121,7 @@ extension ChatsListViewController {
         guard let addChatAlert else {
             return
         }
-
+        
         addChatAlert.addTextField { textField in
             textField.delegate = self
             textField.addTarget(
@@ -97,7 +130,7 @@ extension ChatsListViewController {
                 for: .editingChanged
             )
         }
-
+        
         addChatAlert.addAction(UIAlertAction(
             title: String(localized: "create_chat_alert_create_btn"),
             style: .default
@@ -106,12 +139,12 @@ extension ChatsListViewController {
                 return
             }
             
-            if let _ = textField.text?.trimmingCharacters(in: .whitespacesAndNewlines) {
+            if let chatName = textField.text?.trimmingCharacters(in: .whitespacesAndNewlines) {
                 textField.text = ""
-                self.openChat()
+                self.openChat(chatName: chatName)
             }
         })
-         
+        
         addChatAlert.addAction(UIAlertAction(
             title: String(localized: "create_chat_alert_cancel_btn"),
             style: .cancel,
@@ -141,21 +174,21 @@ extension ChatsListViewController {
     }
 }
 
-//extension ChatsListViewController: UITableViewDelegate, UITableViewDataSource {
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return Chat.example.count
-//    }
-//    
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell: ChatsTableViewCell = tableView.dequeueReusableCell(for: indexPath)
-//        cell.model = chats[indexPath.row]
-//        return cell
-//    }
-//    
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        openChat()
-//    }
-//}
+extension ChatsListViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return filteredChats?.count ?? 0
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell: ChatsTableViewCell = tableView.dequeueReusableCell(for: indexPath)
+        cell.model = filteredChats?[indexPath.row]
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        openChat(existedChat: filteredChats?[indexPath.row])
+    }
+}
 
 extension ChatsListViewController: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
@@ -173,16 +206,41 @@ extension ChatsListViewController: UITextFieldDelegate {
             mainView.searchPlaceholderLabel.isHidden = !text.isEmpty
         }
     }
+    
     func textField(_ textField: UITextField,
                    shouldChangeCharactersIn range: NSRange,
                    replacementString string: String) -> Bool {
         if range.location == 0 && string == " " {
             return false
-        } else if range.location <= Constants.UI.maxSearchSymbols {
-            return true
         }
         
-        return false
+        if textField == mainView.searchField {
+            if range.location <= Constants.UI.maxSearchSymbols {
+                guard let searchText = (textField.text as? NSString)?
+                    .replacingCharacters(in: range, with: string) else {
+                    return false
+                }
+                filteredChats = ChatService.shared.searchChat(for: searchText, in: allChats)
+                if let filteredChats = filteredChats, searchText.isEmpty, filteredChats.isEmpty {
+                    self.filteredChats = allChats
+                }
+                mainView.tableView.reloadChats()
+                return true
+            }
+            return false
+        }
+        return true
+    }
+    
+    func textFieldShouldClear(_ textField: UITextField) -> Bool {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else {
+                return
+            }
+            self.filteredChats = allChats
+            self.mainView.tableView.reloadData()
+        }
+        return true
     }
 }
 

@@ -62,7 +62,6 @@ class DBService {
                 chat?.messages[existIndex] = newMessage
                 chat?.lastMessage = newMessage.content
                 chat?.lastMessageTimestamp = Date()
-
             }
         } catch {
             print("Error adding existing message: \(error.localizedDescription)")
@@ -79,7 +78,6 @@ class DBService {
         } catch {
             print("Error adding user's message: \(error.localizedDescription)")
         }
-        
     }
     
     func removeUserMessage(chatId: ObjectId) {
@@ -93,7 +91,6 @@ class DBService {
             print("Error removing chat message: \(error.localizedDescription)")
         }
     }
-    
     
     func deleteChat(chat: Chat) {
         do {

@@ -14,5 +14,15 @@ struct Constants {
         static let maxChatNameSymbols = 15
         static let maxMessageSymbols = 1000
     }
+    
+    struct API {
+        static let key = "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"
+        static let gptModel = "gpt-3.5-turbo"
+        static let url = "https://api.openai.com/v1/chat/completions"
+    }
+    
+    struct DB {
+        static let searchFormat = "chatName CONTAINS[c] %@ OR ANY messages.content CONTAINS[c] %@"
+    }
     // swiftlint: enable all
 }

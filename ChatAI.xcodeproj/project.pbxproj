@@ -16,6 +16,12 @@
 		6D62C0F52B95DE4600868579 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 6D62C0F42B95DE4600868579 /* RealmSwift */; };
 		6D62C0F82B95DEEF00868579 /* UIColor+toHex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D62C0F72B95DEEF00868579 /* UIColor+toHex.swift */; };
 		6D62C0FC2B95E04600868579 /* DBService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D62C0FB2B95E04600868579 /* DBService.swift */; };
+		6D62C0FF2B95E2A300868579 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D62C0FE2B95E2A300868579 /* APIService.swift */; };
+		6D62C1022B95E96600868579 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 6D62C1012B95E96600868579 /* Alamofire */; };
+		6D62C1042B95E96600868579 /* AlamofireDynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 6D62C1032B95E96600868579 /* AlamofireDynamic */; };
+		6D62C1062B95FE6900868579 /* UITableView+insertRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D62C1052B95FE6900868579 /* UITableView+insertRow.swift */; };
+		6D62C1092B95FFFE00868579 /* ChatService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D62C1082B95FFFE00868579 /* ChatService.swift */; };
+		6D62C10B2B960A4A00868579 /* UITabelView+reloadChats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D62C10A2B960A4A00868579 /* UITabelView+reloadChats.swift */; };
 		6D6864D82B91CA0F005CC1C1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D6864D72B91CA0F005CC1C1 /* AppDelegate.swift */; };
 		6D6864DC2B91CA0F005CC1C1 /* ChatsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D6864DB2B91CA0F005CC1C1 /* ChatsListViewController.swift */; };
 		6D6864E12B91CA11005CC1C1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6D6864E02B91CA11005CC1C1 /* Assets.xcassets */; };
@@ -48,6 +54,10 @@
 		6D62C0EF2B95D59600868579 /* BotMessageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BotMessageTableViewCell.swift; sourceTree = "<group>"; };
 		6D62C0F72B95DEEF00868579 /* UIColor+toHex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+toHex.swift"; sourceTree = "<group>"; };
 		6D62C0FB2B95E04600868579 /* DBService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBService.swift; sourceTree = "<group>"; };
+		6D62C0FE2B95E2A300868579 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
+		6D62C1052B95FE6900868579 /* UITableView+insertRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+insertRow.swift"; sourceTree = "<group>"; };
+		6D62C1082B95FFFE00868579 /* ChatService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatService.swift; sourceTree = "<group>"; };
+		6D62C10A2B960A4A00868579 /* UITabelView+reloadChats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITabelView+reloadChats.swift"; sourceTree = "<group>"; };
 		6D6864D42B91CA0F005CC1C1 /* ChatAI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChatAI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D6864D72B91CA0F005CC1C1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6D6864DB2B91CA0F005CC1C1 /* ChatsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsListViewController.swift; sourceTree = "<group>"; };
@@ -79,6 +89,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				6D62C0F52B95DE4600868579 /* RealmSwift in Frameworks */,
+				6D62C1022B95E96600868579 /* Alamofire in Frameworks */,
+				6D62C1042B95E96600868579 /* AlamofireDynamic in Frameworks */,
 				6D62C0F32B95DE4600868579 /* Realm in Frameworks */,
 				6D6864FC2B91CFE7005CC1C1 /* SnapKit in Frameworks */,
 			);
@@ -107,6 +119,8 @@
 			isa = PBXGroup;
 			children = (
 				6D62C0E72B95B1AB00868579 /* UITableView+scrollToBottom.swift */,
+				6D62C1052B95FE6900868579 /* UITableView+insertRow.swift */,
+				6D62C10A2B960A4A00868579 /* UITabelView+reloadChats.swift */,
 			);
 			path = UITableView;
 			sourceTree = "<group>";
@@ -122,6 +136,8 @@
 		6D62C0F92B95E01E00868579 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				6D62C1072B95FFF200868579 /* ChatService */,
+				6D62C0FD2B95E29500868579 /* APIService */,
 				6D62C0FA2B95E03A00868579 /* DBService */,
 			);
 			path = Service;
@@ -133,6 +149,22 @@
 				6D62C0FB2B95E04600868579 /* DBService.swift */,
 			);
 			path = DBService;
+			sourceTree = "<group>";
+		};
+		6D62C0FD2B95E29500868579 /* APIService */ = {
+			isa = PBXGroup;
+			children = (
+				6D62C0FE2B95E2A300868579 /* APIService.swift */,
+			);
+			path = APIService;
+			sourceTree = "<group>";
+		};
+		6D62C1072B95FFF200868579 /* ChatService */ = {
+			isa = PBXGroup;
+			children = (
+				6D62C1082B95FFFE00868579 /* ChatService.swift */,
+			);
+			path = ChatService;
 			sourceTree = "<group>";
 		};
 		6D6864CB2B91CA0F005CC1C1 = {
@@ -416,6 +448,8 @@
 				6D6864FB2B91CFE7005CC1C1 /* SnapKit */,
 				6D62C0F22B95DE4600868579 /* Realm */,
 				6D62C0F42B95DE4600868579 /* RealmSwift */,
+				6D62C1012B95E96600868579 /* Alamofire */,
+				6D62C1032B95E96600868579 /* AlamofireDynamic */,
 			);
 			productName = ChatAI;
 			productReference = 6D6864D42B91CA0F005CC1C1 /* ChatAI.app */;
@@ -448,6 +482,7 @@
 			packageReferences = (
 				6D6864FA2B91CFE7005CC1C1 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				6D62C0F12B95DE4600868579 /* XCRemoteSwiftPackageReference "realm-swift" */,
+				6D62C1002B95E96600868579 /* XCRemoteSwiftPackageReference "Alamofire" */,
 			);
 			productRefGroup = 6D6864D52B91CA0F005CC1C1 /* Products */;
 			projectDirPath = "";
@@ -508,6 +543,7 @@
 				6D62C0F02B95D59600868579 /* BotMessageTableViewCell.swift in Sources */,
 				6D6865002B91D24D005CC1C1 /* ChatsListView.swift in Sources */,
 				6D62C0FC2B95E04600868579 /* DBService.swift in Sources */,
+				6D62C1092B95FFFE00868579 /* ChatService.swift in Sources */,
 				6D68651F2B91FD5C005CC1C1 /* Reusable.swift in Sources */,
 				6D6864DC2B91CA0F005CC1C1 /* ChatsListViewController.swift in Sources */,
 				6D6865302B922AAC005CC1C1 /* FlexibleTextView.swift in Sources */,
@@ -515,11 +551,14 @@
 				6D68650B2B91DB00005CC1C1 /* String+localized.swift in Sources */,
 				6D68652A2B921AAD005CC1C1 /* ChatView.swift in Sources */,
 				6D6864FE2B91D0DE005CC1C1 /* Chat.swift in Sources */,
+				6D62C1062B95FE6900868579 /* UITableView+insertRow.swift in Sources */,
 				6D68652C2B921AB6005CC1C1 /* ChatViewController.swift in Sources */,
 				6D62C0F82B95DEEF00868579 /* UIColor+toHex.swift in Sources */,
 				6D6865252B921A0F005CC1C1 /* Message.swift in Sources */,
+				6D62C0FF2B95E2A300868579 /* APIService.swift in Sources */,
 				6D62C0E22B93BDB800868579 /* BubbleMessageView.swift in Sources */,
 				6D6865132B91DD7C005CC1C1 /* UIFont+poppins.swift in Sources */,
+				6D62C10B2B960A4A00868579 /* UITabelView+reloadChats.swift in Sources */,
 				6D6864D82B91CA0F005CC1C1 /* AppDelegate.swift in Sources */,
 				6D62C0E52B95AE4800868579 /* Constants.swift in Sources */,
 			);
@@ -735,6 +774,14 @@
 				minimumVersion = 10.47.0;
 			};
 		};
+		6D62C1002B95E96600868579 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.9.0;
+			};
+		};
 		6D6864FA2B91CFE7005CC1C1 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
@@ -755,6 +802,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 6D62C0F12B95DE4600868579 /* XCRemoteSwiftPackageReference "realm-swift" */;
 			productName = RealmSwift;
+		};
+		6D62C1012B95E96600868579 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6D62C1002B95E96600868579 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+		6D62C1032B95E96600868579 /* AlamofireDynamic */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6D62C1002B95E96600868579 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = AlamofireDynamic;
 		};
 		6D6864FB2B91CFE7005CC1C1 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
