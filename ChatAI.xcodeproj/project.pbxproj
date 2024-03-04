@@ -15,6 +15,7 @@
 		6D62C0F32B95DE4600868579 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 6D62C0F22B95DE4600868579 /* Realm */; };
 		6D62C0F52B95DE4600868579 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 6D62C0F42B95DE4600868579 /* RealmSwift */; };
 		6D62C0F82B95DEEF00868579 /* UIColor+toHex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D62C0F72B95DEEF00868579 /* UIColor+toHex.swift */; };
+		6D62C0FC2B95E04600868579 /* DBService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D62C0FB2B95E04600868579 /* DBService.swift */; };
 		6D6864D82B91CA0F005CC1C1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D6864D72B91CA0F005CC1C1 /* AppDelegate.swift */; };
 		6D6864DC2B91CA0F005CC1C1 /* ChatsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D6864DB2B91CA0F005CC1C1 /* ChatsListViewController.swift */; };
 		6D6864E12B91CA11005CC1C1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6D6864E02B91CA11005CC1C1 /* Assets.xcassets */; };
@@ -46,6 +47,7 @@
 		6D62C0ED2B95D4F600868579 /* UserMessageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserMessageTableViewCell.swift; sourceTree = "<group>"; };
 		6D62C0EF2B95D59600868579 /* BotMessageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BotMessageTableViewCell.swift; sourceTree = "<group>"; };
 		6D62C0F72B95DEEF00868579 /* UIColor+toHex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+toHex.swift"; sourceTree = "<group>"; };
+		6D62C0FB2B95E04600868579 /* DBService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBService.swift; sourceTree = "<group>"; };
 		6D6864D42B91CA0F005CC1C1 /* ChatAI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChatAI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D6864D72B91CA0F005CC1C1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6D6864DB2B91CA0F005CC1C1 /* ChatsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsListViewController.swift; sourceTree = "<group>"; };
@@ -117,6 +119,22 @@
 			path = UIColor;
 			sourceTree = "<group>";
 		};
+		6D62C0F92B95E01E00868579 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				6D62C0FA2B95E03A00868579 /* DBService */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		6D62C0FA2B95E03A00868579 /* DBService */ = {
+			isa = PBXGroup;
+			children = (
+				6D62C0FB2B95E04600868579 /* DBService.swift */,
+			);
+			path = DBService;
+			sourceTree = "<group>";
+		};
 		6D6864CB2B91CA0F005CC1C1 = {
 			isa = PBXGroup;
 			children = (
@@ -160,6 +178,7 @@
 		6D6864EE2B91CE9C005CC1C1 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				6D62C0F92B95E01E00868579 /* Service */,
 				6D62C0E32B95AE3700868579 /* Constants */,
 				6D68652D2B922A94005CC1C1 /* Components */,
 				6D68651C2B91FD4B005CC1C1 /* Protocols */,
@@ -488,6 +507,7 @@
 				6D62C0EE2B95D4F600868579 /* UserMessageTableViewCell.swift in Sources */,
 				6D62C0F02B95D59600868579 /* BotMessageTableViewCell.swift in Sources */,
 				6D6865002B91D24D005CC1C1 /* ChatsListView.swift in Sources */,
+				6D62C0FC2B95E04600868579 /* DBService.swift in Sources */,
 				6D68651F2B91FD5C005CC1C1 /* Reusable.swift in Sources */,
 				6D6864DC2B91CA0F005CC1C1 /* ChatsListViewController.swift in Sources */,
 				6D6865302B922AAC005CC1C1 /* FlexibleTextView.swift in Sources */,
