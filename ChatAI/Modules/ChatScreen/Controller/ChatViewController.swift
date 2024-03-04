@@ -10,7 +10,6 @@ import UIKit
 
 class ChatViewController: UIViewController {
     private let mainView = ChatView()
-    private let messages = Message.example
     
     override func loadView() {
         view = mainView
@@ -71,8 +70,8 @@ extension ChatViewController {
     }
     
     private func setupTableView() {
-        mainView.tableView.delegate = self
-        mainView.tableView.dataSource = self
+//        mainView.tableView.delegate = self
+//        mainView.tableView.dataSource = self
 //        mainView.tableView.registerReusableCell(MessageTableViewCell.self)
         mainView.tableView.registerReusableCell(UserMessageTableViewCell.self)
         mainView.tableView.registerReusableCell(BotMessageTableViewCell.self)
@@ -112,21 +111,21 @@ extension ChatViewController: UITextViewDelegate {
     }
 }
 
-extension ChatViewController: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return messages.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch messages[indexPath.row].role {
-        case .user:
-            let cell: UserMessageTableViewCell = tableView.dequeueReusableCell(for: indexPath)
-            cell.model = messages[indexPath.row]
-            return cell
-        case .assistant:
-            let cell: BotMessageTableViewCell = tableView.dequeueReusableCell(for: indexPath)
-            cell.model = messages[indexPath.row]
-            return cell
-        }
-    }
-}
+//extension ChatViewController: UITableViewDelegate, UITableViewDataSource {
+//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+////        return messages.count
+//    }
+//    
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+////        switch messages[indexPath.row].role {
+////        case .user:
+////            let cell: UserMessageTableViewCell = tableView.dequeueReusableCell(for: indexPath)
+////            cell.model = messages[indexPath.row]
+////            return cell
+////        case .assistant:
+////            let cell: BotMessageTableViewCell = tableView.dequeueReusableCell(for: indexPath)
+////            cell.model = messages[indexPath.row]
+////            return cell
+////        }
+//    }
+//}

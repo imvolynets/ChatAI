@@ -10,7 +10,6 @@ import UIKit
 
 class ChatsListViewController: UIViewController {
     private let mainView = ChatsListView()
-    private let chats = Chat.example
     private var addChatAlert: UIAlertController?
     
     override func loadView() {
@@ -41,8 +40,8 @@ class ChatsListViewController: UIViewController {
 
 extension ChatsListViewController {
     private func setupTableView() {
-        mainView.tableView.dataSource = self
-        mainView.tableView.delegate = self
+//        mainView.tableView.dataSource = self
+//        mainView.tableView.delegate = self
         mainView.tableView.registerReusableCell(ChatsTableViewCell.self)
     }
     
@@ -142,21 +141,21 @@ extension ChatsListViewController {
     }
 }
 
-extension ChatsListViewController: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return Chat.example.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: ChatsTableViewCell = tableView.dequeueReusableCell(for: indexPath)
-        cell.model = chats[indexPath.row]
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        openChat()
-    }
-}
+//extension ChatsListViewController: UITableViewDelegate, UITableViewDataSource {
+//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        return Chat.example.count
+//    }
+//    
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        let cell: ChatsTableViewCell = tableView.dequeueReusableCell(for: indexPath)
+//        cell.model = chats[indexPath.row]
+//        return cell
+//    }
+//    
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        openChat()
+//    }
+//}
 
 extension ChatsListViewController: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
