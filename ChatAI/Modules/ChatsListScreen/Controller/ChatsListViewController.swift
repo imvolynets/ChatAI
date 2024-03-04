@@ -140,8 +140,10 @@ extension ChatsListViewController {
             }
             
             if let chatName = textField.text?.trimmingCharacters(in: .whitespacesAndNewlines) {
-                textField.text = ""
-                self.openChat(chatName: chatName)
+                if self.performValidationChatName(chatName: chatName) {
+                    textField.text = ""
+                    self.openChat(chatName: chatName)
+                }
             }
         })
         
@@ -285,5 +287,26 @@ extension ChatsListViewController {
         if let selectedIndexPath = mainView.tableView.indexPathForSelectedRow {
             mainView.tableView.deselectRow(at: selectedIndexPath, animated: true)
         }
+    }
+}
+
+extension ChatsListViewController {
+    private func performValidationChatName(chatName: String) -> Bool {
+        guard let allChats else {
+            return false
+        }
+        do {
+            try Validation.validateChatName(chatName: chatName, allChats: Array(allChats))
+        } catch let error as ValidationError {
+            let alert = ErrorAlert.showAlertError(
+                title: "chat_create_validation_error_title".localized,
+                message: error.localizedDescription
+            )
+            present(alert, animated: true, completion: nil)
+            return false
+        } catch {
+            print("An unexcepted error occured")
+        }
+        return true
     }
 }
