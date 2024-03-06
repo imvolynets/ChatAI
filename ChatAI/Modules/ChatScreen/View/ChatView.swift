@@ -54,6 +54,20 @@ class ChatView: UIView {
         return obj
     }()
     
+    let container: UIStackView = {
+        let obj = UIStackView()
+        obj.axis = .horizontal
+        obj.alignment = .center
+        obj.spacing = 5.sizeW
+        return obj
+    }()
+    
+    let dots: DotsView = {
+        let obj = DotsView()
+        obj.isHidden = true
+        return obj
+    }()
+    
     let statusLabel: UILabel = {
         let obj = UILabel()
         obj.font = .systemFont(ofSize: 12.sizeW, weight: .regular)
@@ -117,7 +131,9 @@ class ChatView: UIView {
         
         blurView.contentView.addSubview(backButton)
         blurView.contentView.addSubview(chatName)
-        blurView.contentView.addSubview(statusLabel)
+        blurView.contentView.addSubview(container)
+        container.addArrangedSubview(dots)
+        container.addArrangedSubview(statusLabel)
         blurView.contentView.addSubview(avatarView)
         avatarView.addSubview(firstLetterName)
         addSubview(messageView)
@@ -130,7 +146,7 @@ class ChatView: UIView {
     private func makeConstraints() {
         blurView.snp.makeConstraints { make in
             make.leading.trailing.top.equalToSuperview()
-            make.bottom.equalTo(statusLabel.snp.bottom).offset(14.sizeH)
+            make.bottom.equalTo(container.snp.bottom).offset(14.sizeH)
         }
         
         backButton.snp.makeConstraints { make in
@@ -143,7 +159,7 @@ class ChatView: UIView {
             make.centerX.equalToSuperview()
         }
         
-        statusLabel.snp.makeConstraints { make in
+        container.snp.makeConstraints { make in
             make.top.equalTo(chatName.snp.bottom)
             make.centerX.equalToSuperview()
         }
@@ -178,7 +194,7 @@ class ChatView: UIView {
         messageView.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(13.sizeW)
             make.trailing.equalTo(sendButton.snp.leading).offset(-10.sizeW)
-            make.height.greaterThanOrEqualTo(40.sizeH)
+            make.top.equalTo(messageTextView.snp.top)
             make.bottom.equalTo(keyboardLayoutGuide.snp.top).offset(-9.sizeH)
         }
         

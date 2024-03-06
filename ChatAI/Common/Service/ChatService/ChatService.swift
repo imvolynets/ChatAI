@@ -36,9 +36,25 @@ class ChatService {
         }
     }
     
-    func createNewMessage(newMessageResponse: ChatStreamCompletionResponse, messageContent: String, chat: Chat) {
-        let newMessage = Message(id: newMessageResponse.id, content: messageContent, role: .assistant)
+    func createBotMessage(newMessageResponse: ChatStreamCompletionResponse, messageContent: String) -> Message {
+        return Message(id: newMessageResponse.id, content: messageContent, role: .assistant)
+    }
+    
+    func addBotMessageToDatabase(newMessageResponse: ChatStreamCompletionResponse, messageContent: String, chat: Chat) {
+        let newMessage = createBotMessage(newMessageResponse: newMessageResponse, messageContent: messageContent)
         DBService.shared.addBotMessgae(chatId: chat.id, botMessage: newMessage)
+    }
+    
+    func rewriteBotMessageInDatabase(newMessageResponse: ChatStreamCompletionResponse, 
+                                     messageContent: String,
+                                     chat: Chat,
+                                     selectedMessage: Message?,
+                                     indexPathRow: Int) {
+        let newMessage = createBotMessage(newMessageResponse: newMessageResponse, messageContent: messageContent)
+        DBService.shared.rewriteBotMessgae(chatId: chat.id, 
+                                           botMessage: newMessage,
+                                           indexMessage: selectedMessage?.role == .user ?
+                                           indexPathRow + 1 : indexPathRow)
     }
     
     func addMessageToTheExistedMessage(

@@ -9,7 +9,7 @@ import Foundation
 import SnapKit
 import UIKit
 
-class BotMessageTableViewCell: UITableViewCell, Reusable {
+class BotMessageTableViewCell: UITableViewCell, Reusable, BubbleView {
     var model: Message? {
         didSet {
             handleUI()

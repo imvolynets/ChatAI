@@ -9,12 +9,17 @@ import Foundation
 import SnapKit
 import UIKit
 
-class UserMessageTableViewCell: UITableViewCell, Reusable {
+protocol BubbleView {
+    var bubbleView: BubbleMessageView { get }
+}
+
+class UserMessageTableViewCell: UITableViewCell, Reusable, BubbleView {
     var model: Message? {
         didSet {
             handleUI()
         }
     }
+    
     let bubbleView: BubbleMessageView = {
         let obj = BubbleMessageView()
         obj.backgroundColor = .clear

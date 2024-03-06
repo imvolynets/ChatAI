@@ -13,6 +13,7 @@ import UIKit
 class ChatsListViewController: UIViewController {
     private let mainView = ChatsListView()
     private var addChatAlert: UIAlertController?
+    private let errorHelper = ErrorHelper()
     
     private var allChats: Results<Chat>?
     private var filteredChats: Results<Chat>?
@@ -298,11 +299,7 @@ extension ChatsListViewController {
         do {
             try Validation.validateChatName(chatName: chatName, allChats: Array(allChats))
         } catch let error as ValidationError {
-            let alert = ErrorAlert.showAlertError(
-                title: "chat_create_validation_error_title".localized,
-                message: error.localizedDescription
-            )
-            present(alert, animated: true, completion: nil)
+            errorHelper.presentError(forError: error, inViewController: self)
             return false
         } catch {
             print("An unexcepted error occured")

@@ -5,11 +5,15 @@
 //  Created by Volynets Vladislav on 01.03.2024.
 //
 
+import Alamofire
 import Foundation
 import UIKit
 
+
 class ChatViewController: UIViewController {
     private let mainView = ChatView()
+    private let errorHelper = ErrorHelper()
+    private var isTyping = false
     
     var chat: Chat? {
         didSet {
@@ -85,8 +89,12 @@ extension ChatViewController {
 }
 
 extension ChatViewController {
-    @objc 
+    @objc
     private func didTapBackButton() {
+        if let chat = chat, !chat.messages.isEmpty && chat.messages.last?.role != .assistant {
+            DBService.shared.removeUserMessage(chatId: chat.id)
+        }
+        mainView.messageTextView.resignFirstResponder()
         navigationController?.popViewController(animated: true)
     }
     
@@ -107,54 +115,23 @@ extension ChatViewController {
         let userMessage = Message(id: UUID().uuidString, content: userText, role: .user)
         DBService.shared.addUserMessage(chatId: chat.id, userMessage: userMessage)
         mainView.tableView.insertRow(row: chat.messages.count - 1, animation: .right)
+        mainView.tableView.scrollToBottom(animated: true)
         mainView.sendButton.isEnabled = false
         mainView.messageTextView.isEditable = false
         mainView.statusLabel.text = "chat_status_typing".localized
+        mainView.dots.isHidden = false
+        mainView.dots.animateDots()
+        isTyping = true
         APIService.shared.sendStreamMessage(messages: Array(chat.messages)).responseStreamString { [weak self] stream in
             guard let self = self else {
                 return
             }
             switch stream.event {
             case .stream(let response):
-                switch response {
-                case .success(let string):
-                    print(string)
-                    let streamResponse = ChatService.shared.parseStreamData(string)
-                    streamResponse.forEach { newMessageResponse in
-                        guard let messageContent = newMessageResponse.choices.first?.delta.content else {
-                            return
-                        }
-                        
-                        guard let exsistingMessageIndex = chat.messages.lastIndex(
-                            where: { $0.id == newMessageResponse.id }
-                        ) else {
-                            ChatService.shared.createNewMessage(
-                                newMessageResponse: newMessageResponse,
-                                messageContent: messageContent,
-                                chat: chat
-                            )
-                            return
-                        }
-
-                        ChatService.shared.addMessageToTheExistedMessage(
-                            newMessageResponse: newMessageResponse,
-                            messageContent: messageContent,
-                            chat: chat,
-                            exsistingMessageIndex: exsistingMessageIndex
-                        )
-                        
-                        DispatchQueue.main.async {
-                            self.mainView.tableView.reloadData()
-                        }
-                    }
-                case .failure(_):
-                    print("Something got wrong")
-                }
-            case .complete(let data):
-                mainView.statusLabel.text = "chat_status_online".localized
-                mainView.messageTextView.isEditable = true
-                print(data.response?.statusCode)
-                print("completed")
+                streamMessage(response: response)
+                
+            case .complete(let result):
+                finishResponse(result: result)
             }
         }
     }
@@ -204,5 +181,203 @@ extension ChatViewController: UITableViewDelegate, UITableViewDataSource {
         case .none:
             return UITableViewCell()
         }
+    }
+    
+    func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath,
+                   point: CGPoint) -> UIContextMenuConfiguration? {
+        if !isTyping {
+            switch chat?.messages[indexPath.row].role {
+            case .assistant:
+                guard tableView.cellForRow(at: indexPath) is BotMessageTableViewCell else {
+                    return nil
+                }
+                return createContextMenu(indexPath: indexPath)
+            case .user:
+                guard tableView.cellForRow(at: indexPath) is UserMessageTableViewCell else {
+                    return nil
+                }
+                return createContextMenu(indexPath: indexPath)
+            case .none:
+                break
+            }
+        }
+        return nil
+    }
+    
+    func createContextMenu(indexPath: IndexPath) -> UIContextMenuConfiguration {
+        let selectedMessage = chat?.messages[indexPath.row]
+        let configuration = UIContextMenuConfiguration(
+            identifier: indexPath as NSIndexPath,
+            previewProvider: nil) { _ in
+                let replyAction = UIAction(
+                    title: "Reply",
+                    image: UIImage(systemName: "arrowshape.turn.up.left")) { [weak self] _ in
+                        guard let self, let chat else {
+                            return
+                        }
+                        var newMessgaes = [Message]()
+                        if selectedMessage?.role == .user {
+                            if let index = chat.messages.firstIndex(where: { $0.id == selectedMessage?.id }) {
+                                newMessgaes = Array(chat.messages.prefix(index + 1))
+                            } else {
+                                print("Element not found in array")
+                            }
+                        } else {
+                            if let index = chat.messages.firstIndex(where: { $0.id == selectedMessage?.id }) {
+                                newMessgaes = Array(chat.messages.prefix(index))
+                            } else {
+                                print("Element not found in array")
+                            }
+                        }
+                        mainView.sendButton.isEnabled = false
+                        mainView.messageTextView.isEditable = false
+                        mainView.statusLabel.text = "chat_status_typing".localized
+                        mainView.dots.isHidden = false
+                        mainView.dots.animateDots()
+                        isTyping = true
+                        APIService.shared.sendStreamMessage(messages: newMessgaes).responseStreamString { [weak self] stream in
+                            guard let self = self else {
+                                return
+                            }
+                            switch stream.event {
+                            case .stream(let response):
+                                streamMessage(response: response,
+                                              selectedMessage: selectedMessage,
+                                              indexPath: indexPath,
+                                              rewrite: true)
+                            case .complete(let result):
+                                finishResponse(result: result, rewrite: true)
+                            }
+                        }
+                }
+                
+                let copyAction = UIAction(
+                    title: "Copy",
+                    image: UIImage(systemName: "doc.on.doc")) { [weak self] _ in
+                        guard let self else {
+                            return
+                        }
+                        copyMessage(selectedMessage: selectedMessage)
+                }
+                
+                let menu = UIMenu(title: "", image: nil, children: [replyAction, copyAction])
+                return menu
+        }
+        
+        return configuration
+    }
+    
+    func tableView(_ tableView: UITableView, previewForDismissingContextMenuWithConfiguration configuration: UIContextMenuConfiguration) -> UITargetedPreview? {
+        guard let indexPath = configuration.identifier as? IndexPath else {
+            return nil
+        }
+        
+        if let cell = tableView.cellForRow(at: indexPath) as? UserMessageTableViewCell {
+            return setParametersForContextMenu(cell: cell)
+        } else if let cell = tableView.cellForRow(at: indexPath) as? BotMessageTableViewCell {
+            return setParametersForContextMenu(cell: cell)
+        }
+        
+        return nil
+    }
+    
+    func tableView(_ tableView: UITableView, previewForHighlightingContextMenuWithConfiguration configuration: UIContextMenuConfiguration) -> UITargetedPreview? {
+        guard let indexPath = configuration.identifier as? IndexPath else {
+            return nil
+        }
+        
+        if let cell = tableView.cellForRow(at: indexPath) as? UserMessageTableViewCell {
+            return setParametersForContextMenu(cell: cell)
+        } else if let cell = tableView.cellForRow(at: indexPath) as? BotMessageTableViewCell {
+            return setParametersForContextMenu(cell: cell)
+        }
+        
+        return nil
+    }
+}
+
+extension ChatViewController {
+    private func setParametersForContextMenu<T: BubbleView>(cell: T) -> UITargetedPreview {
+        let parameters = UIPreviewParameters()
+        parameters.backgroundColor = .clear
+        parameters.visiblePath = cell.bubbleView.bezierPath
+        
+        return UITargetedPreview(view: cell.bubbleView, parameters: parameters)
+    }
+}
+
+extension ChatViewController {
+    private func streamMessage(response: (Result<String, Never>),
+                               selectedMessage: Message? = nil,
+                               indexPath: IndexPath? = nil,
+                               rewrite: Bool = false) {
+        guard let chat else {
+            return
+        }
+        switch response {
+        case .success(let string):
+            let streamResponse = ChatService.shared.parseStreamData(string)
+            streamResponse.forEach { newMessageResponse in
+                guard let messageContent = newMessageResponse.choices.first?.delta.content else {
+                    return
+                }
+                
+                guard let exsistingMessageIndex = chat.messages.lastIndex(
+                    where: { $0.id == newMessageResponse.id }
+                ) else {
+                    if rewrite {
+                        ChatService.shared.rewriteBotMessageInDatabase(
+                            newMessageResponse: newMessageResponse,
+                            messageContent: messageContent,
+                            chat: chat,
+                            selectedMessage: selectedMessage,
+                            indexPathRow: indexPath?.row ?? 0
+                        )
+                    } else {
+                        ChatService.shared.addBotMessageToDatabase(
+                            newMessageResponse: newMessageResponse,
+                            messageContent: messageContent,
+                            chat: chat
+                        )
+                    }
+                    return
+                }
+                
+                ChatService.shared.addMessageToTheExistedMessage(
+                    newMessageResponse: newMessageResponse,
+                    messageContent: messageContent,
+                    chat: chat,
+                    exsistingMessageIndex: exsistingMessageIndex
+                )
+                
+                DispatchQueue.main.async {
+                    self.mainView.tableView.reloadData()
+                }
+            }
+        case .failure(_):
+            print("Something got wrong")
+        }
+    }
+    
+    func finishResponse(result: DataStreamRequest.Completion, rewrite: Bool = false) {
+        if result.response?.statusCode == 429 {
+            errorHelper.presentError(
+                forError: APIError.reachedResponsesLimit,
+                inViewController: self)
+            
+            if let chat, !rewrite {
+                DBService.shared.removeUserMessage(chatId: chat.id)
+                mainView.tableView.reloadChats()
+            }
+        }
+        isTyping = false
+        mainView.dots.isHidden = true
+        mainView.statusLabel.text = "chat_status_online".localized
+        mainView.messageTextView.isEditable = true
+        print("completed")
+    }
+    
+    private func copyMessage(selectedMessage: Message?) {
+        UIPasteboard.general.string = selectedMessage?.content
     }
 }

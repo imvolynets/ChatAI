@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6D2CB6BA2B9859A2002C56B3 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D2CB6B92B9859A2002C56B3 /* APIError.swift */; };
 		6D62C0E22B93BDB800868579 /* BubbleMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D62C0E12B93BDB800868579 /* BubbleMessageView.swift */; };
 		6D62C0E52B95AE4800868579 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D62C0E42B95AE4800868579 /* Constants.swift */; };
 		6D62C0E82B95B1AB00868579 /* UITableView+scrollToBottom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D62C0E72B95B1AB00868579 /* UITableView+scrollToBottom.swift */; };
@@ -18,13 +19,13 @@
 		6D62C0FC2B95E04600868579 /* DBService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D62C0FB2B95E04600868579 /* DBService.swift */; };
 		6D62C0FF2B95E2A300868579 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D62C0FE2B95E2A300868579 /* APIService.swift */; };
 		6D62C1022B95E96600868579 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 6D62C1012B95E96600868579 /* Alamofire */; };
-		6D62C1042B95E96600868579 /* AlamofireDynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 6D62C1032B95E96600868579 /* AlamofireDynamic */; };
 		6D62C1062B95FE6900868579 /* UITableView+insertRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D62C1052B95FE6900868579 /* UITableView+insertRow.swift */; };
 		6D62C1092B95FFFE00868579 /* ChatService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D62C1082B95FFFE00868579 /* ChatService.swift */; };
 		6D62C10B2B960A4A00868579 /* UITableView+reloadChats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D62C10A2B960A4A00868579 /* UITableView+reloadChats.swift */; };
 		6D62C1122B96120A00868579 /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D62C1112B96120A00868579 /* Validation.swift */; };
 		6D62C1152B96130B00868579 /* ValidationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D62C1142B96130B00868579 /* ValidationError.swift */; };
 		6D62C1182B9613BF00868579 /* ErrorAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D62C1172B9613BF00868579 /* ErrorAlert.swift */; };
+		6D62C11B2B96613F00868579 /* DotsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D62C11A2B96613F00868579 /* DotsView.swift */; };
 		6D6864D82B91CA0F005CC1C1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D6864D72B91CA0F005CC1C1 /* AppDelegate.swift */; };
 		6D6864DC2B91CA0F005CC1C1 /* ChatsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D6864DB2B91CA0F005CC1C1 /* ChatsListViewController.swift */; };
 		6D6864E12B91CA11005CC1C1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6D6864E02B91CA11005CC1C1 /* Assets.xcassets */; };
@@ -47,9 +48,11 @@
 		6D68652C2B921AB6005CC1C1 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D68652B2B921AB6005CC1C1 /* ChatViewController.swift */; };
 		6D6865302B922AAC005CC1C1 /* FlexibleTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D68652F2B922AAC005CC1C1 /* FlexibleTextView.swift */; };
 		6D6865352B924316005CC1C1 /* CheckForEmpty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D6865342B924316005CC1C1 /* CheckForEmpty.swift */; };
+		6DB526EF2B98670000110BDA /* ErrorHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DB526EE2B98670000110BDA /* ErrorHelper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6D2CB6B92B9859A2002C56B3 /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
 		6D62C0E12B93BDB800868579 /* BubbleMessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleMessageView.swift; sourceTree = "<group>"; };
 		6D62C0E42B95AE4800868579 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		6D62C0E72B95B1AB00868579 /* UITableView+scrollToBottom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+scrollToBottom.swift"; sourceTree = "<group>"; };
@@ -64,6 +67,7 @@
 		6D62C1112B96120A00868579 /* Validation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validation.swift; sourceTree = "<group>"; };
 		6D62C1142B96130B00868579 /* ValidationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationError.swift; sourceTree = "<group>"; };
 		6D62C1172B9613BF00868579 /* ErrorAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorAlert.swift; sourceTree = "<group>"; };
+		6D62C11A2B96613F00868579 /* DotsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DotsView.swift; sourceTree = "<group>"; };
 		6D6864D42B91CA0F005CC1C1 /* ChatAI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChatAI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D6864D72B91CA0F005CC1C1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6D6864DB2B91CA0F005CC1C1 /* ChatsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsListViewController.swift; sourceTree = "<group>"; };
@@ -87,6 +91,7 @@
 		6D68652B2B921AB6005CC1C1 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		6D68652F2B922AAC005CC1C1 /* FlexibleTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexibleTextView.swift; sourceTree = "<group>"; };
 		6D6865342B924316005CC1C1 /* CheckForEmpty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckForEmpty.swift; sourceTree = "<group>"; };
+		6DB526EE2B98670000110BDA /* ErrorHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,7 +101,6 @@
 			files = (
 				6D62C0F52B95DE4600868579 /* RealmSwift in Frameworks */,
 				6D62C1022B95E96600868579 /* Alamofire in Frameworks */,
-				6D62C1042B95E96600868579 /* AlamofireDynamic in Frameworks */,
 				6D62C0F32B95DE4600868579 /* Realm in Frameworks */,
 				6D6864FC2B91CFE7005CC1C1 /* SnapKit in Frameworks */,
 			);
@@ -186,6 +190,7 @@
 			isa = PBXGroup;
 			children = (
 				6D62C1142B96130B00868579 /* ValidationError.swift */,
+				6D2CB6B92B9859A2002C56B3 /* APIError.swift */,
 			);
 			path = Enum;
 			sourceTree = "<group>";
@@ -196,6 +201,14 @@
 				6D62C1172B9613BF00868579 /* ErrorAlert.swift */,
 			);
 			path = ErrorAlert;
+			sourceTree = "<group>";
+		};
+		6D62C1192B96613000868579 /* DotsView */ = {
+			isa = PBXGroup;
+			children = (
+				6D62C11A2B96613F00868579 /* DotsView.swift */,
+			);
+			path = DotsView;
 			sourceTree = "<group>";
 		};
 		6D6864CB2B91CA0F005CC1C1 = {
@@ -343,6 +356,7 @@
 		6D6865142B91DF37005CC1C1 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				6DB526ED2B9866F300110BDA /* ErrorHelper */,
 				6D62C1102B9611FF00868579 /* Validation */,
 				6D6865312B9242F7005CC1C1 /* Functions */,
 			);
@@ -428,6 +442,7 @@
 		6D68652D2B922A94005CC1C1 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				6D62C1192B96613000868579 /* DotsView */,
 				6D62C1162B9613B400868579 /* ErrorAlert */,
 				6D62C0E02B93BDA300868579 /* BubbleMessageView */,
 				6D68652E2B922A9B005CC1C1 /* FlexibleTextView */,
@@ -460,6 +475,14 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
+		6DB526ED2B9866F300110BDA /* ErrorHelper */ = {
+			isa = PBXGroup;
+			children = (
+				6DB526EE2B98670000110BDA /* ErrorHelper.swift */,
+			);
+			path = ErrorHelper;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -482,7 +505,6 @@
 				6D62C0F22B95DE4600868579 /* Realm */,
 				6D62C0F42B95DE4600868579 /* RealmSwift */,
 				6D62C1012B95E96600868579 /* Alamofire */,
-				6D62C1032B95E96600868579 /* AlamofireDynamic */,
 			);
 			productName = ChatAI;
 			productReference = 6D6864D42B91CA0F005CC1C1 /* ChatAI.app */;
@@ -578,16 +600,19 @@
 				6D62C0F02B95D59600868579 /* BotMessageTableViewCell.swift in Sources */,
 				6D6865002B91D24D005CC1C1 /* ChatsListView.swift in Sources */,
 				6D62C0FC2B95E04600868579 /* DBService.swift in Sources */,
+				6D2CB6BA2B9859A2002C56B3 /* APIError.swift in Sources */,
 				6D62C1152B96130B00868579 /* ValidationError.swift in Sources */,
 				6D62C1092B95FFFE00868579 /* ChatService.swift in Sources */,
 				6D68651F2B91FD5C005CC1C1 /* Reusable.swift in Sources */,
 				6D6864DC2B91CA0F005CC1C1 /* ChatsListViewController.swift in Sources */,
 				6D6865302B922AAC005CC1C1 /* FlexibleTextView.swift in Sources */,
 				6D6865352B924316005CC1C1 /* CheckForEmpty.swift in Sources */,
+				6D62C11B2B96613F00868579 /* DotsView.swift in Sources */,
 				6D68650B2B91DB00005CC1C1 /* String+localized.swift in Sources */,
 				6D68652A2B921AAD005CC1C1 /* ChatView.swift in Sources */,
 				6D6864FE2B91D0DE005CC1C1 /* Chat.swift in Sources */,
 				6D62C1062B95FE6900868579 /* UITableView+insertRow.swift in Sources */,
+				6DB526EF2B98670000110BDA /* ErrorHelper.swift in Sources */,
 				6D68652C2B921AB6005CC1C1 /* ChatViewController.swift in Sources */,
 				6D62C0F82B95DEEF00868579 /* UIColor+toHex.swift in Sources */,
 				6D6865252B921A0F005CC1C1 /* Message.swift in Sources */,
@@ -843,11 +868,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 6D62C1002B95E96600868579 /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
-		};
-		6D62C1032B95E96600868579 /* AlamofireDynamic */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 6D62C1002B95E96600868579 /* XCRemoteSwiftPackageReference "Alamofire" */;
-			productName = AlamofireDynamic;
 		};
 		6D6864FB2B91CFE7005CC1C1 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;

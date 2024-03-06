@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 class Validation {
     static func validateChatName(chatName: String, allChats: [Chat]?) throws {
