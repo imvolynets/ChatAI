@@ -14,6 +14,7 @@ class ChatViewController: UIViewController {
     private let mainView = ChatView()
     private let errorHelper = ErrorHelper()
     private let networkService = NetworkSerivce()
+    private var status: NWPath.Status?
     private var isTyping = false
     
     var chat: Chat? {
@@ -91,12 +92,14 @@ extension ChatViewController {
                     mainView.statusLabel.text = "chat_status_online".localized
                     mainView.messageTextView.isEditable = true
                     mainView.sendButton.isEnabled = true
+                    status = .satisfied
                 case .unsatisfied:
                     print("disconnected")
                     mainView.statusLabel.text = "chat_status_offline".localized
                     mainView.messageTextView.isEditable = false
                     mainView.sendButton.isEnabled = false
                     mainView.dots.isHidden = true
+                    status = .unsatisfied
                 case .requiresConnection:
                     break
                 @unknown default:
@@ -297,8 +300,11 @@ extension ChatViewController: UITableViewDelegate, UITableViewDataSource {
                         copyMessage(selectedMessage: selectedMessage)
                     }
                 
-                let menu = UIMenu(title: "", image: nil, children: [replyAction, copyAction])
-                return menu
+                if self.status == .satisfied {
+                   return UIMenu(title: "", image: nil, children: [replyAction, copyAction])
+                } else {
+                    return UIMenu(title: "", image: nil, children: [copyAction])
+                }
             }
         
         return configuration
