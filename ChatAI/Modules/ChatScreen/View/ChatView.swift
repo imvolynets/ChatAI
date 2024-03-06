@@ -35,7 +35,6 @@ class ChatView: UIView {
         let obj = UILabel()
         obj.textColor = .appBlackWhite
         obj.font = .Poppins.semiBold(size: 16).font
-        obj.text = "Atveroeoset accusamus dupol" // test
         return obj
     }()
     
@@ -43,7 +42,6 @@ class ChatView: UIView {
         let obj = UIView()
         obj.layer.cornerRadius = 18
         obj.clipsToBounds = true
-        obj.backgroundColor = .purple // test
         return obj
     }()
     

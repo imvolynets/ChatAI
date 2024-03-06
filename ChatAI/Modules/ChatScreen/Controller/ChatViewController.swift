@@ -7,12 +7,13 @@
 
 import Alamofire
 import Foundation
+import Network
 import UIKit
-
 
 class ChatViewController: UIViewController {
     private let mainView = ChatView()
     private let errorHelper = ErrorHelper()
+    private let networkService = NetworkSerivce()
     private var isTyping = false
     
     var chat: Chat? {
@@ -31,6 +32,8 @@ class ChatViewController: UIViewController {
     }
     
     private func initViewController() {
+        networkService.monitorNetwork()
+        addObservers()
         setSlideBackFunctionality()
         addObservers()
         setupButtons()
@@ -57,9 +60,15 @@ extension ChatViewController {
             self,
             selector: #selector(didKeyboardShow(_:)),
             name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(networkStatusChanged(_:)),
+            name: .networkStatus,
+            object: nil)
     }
     private func removeObservers() {
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .networkStatus, object: nil)
     }
 }
 
@@ -68,7 +77,35 @@ extension ChatViewController {
     private func didKeyboardShow(_ notification: Notification) {
         mainView.tableView.scrollToBottom(animated: false)
     }
-}
+    
+    @objc
+    private func networkStatusChanged(_ notification: Notification) {
+        if let connection = notification.object as? NWPath.Status {
+            DispatchQueue.main.async { [weak self] in
+                guard let self else {
+                    return
+                }
+                switch connection {
+                case .satisfied:
+                    print("conntected")
+                    mainView.statusLabel.text = "chat_status_online".localized
+                    mainView.messageTextView.isEditable = true
+                    mainView.sendButton.isEnabled = true
+                case .unsatisfied:
+                    print("disconnected")
+                    mainView.statusLabel.text = "chat_status_offline".localized
+                    mainView.messageTextView.isEditable = false
+                    mainView.sendButton.isEnabled = false
+                    mainView.dots.isHidden = true
+                case .requiresConnection:
+                    break
+                @unknown default:
+                    break
+                }
+            }
+            }
+        }
+    }
 
 extension ChatViewController {
     private func setupButtons() {
@@ -249,7 +286,7 @@ extension ChatViewController: UITableViewDelegate, UITableViewDataSource {
                                 finishResponse(result: result, rewrite: true)
                             }
                         }
-                }
+                    }
                 
                 let copyAction = UIAction(
                     title: "Copy",
@@ -258,11 +295,11 @@ extension ChatViewController: UITableViewDelegate, UITableViewDataSource {
                             return
                         }
                         copyMessage(selectedMessage: selectedMessage)
-                }
+                    }
                 
                 let menu = UIMenu(title: "", image: nil, children: [replyAction, copyAction])
                 return menu
-        }
+            }
         
         return configuration
     }

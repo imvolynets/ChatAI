@@ -49,6 +49,8 @@
 		6D6865302B922AAC005CC1C1 /* FlexibleTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D68652F2B922AAC005CC1C1 /* FlexibleTextView.swift */; };
 		6D6865352B924316005CC1C1 /* CheckForEmpty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D6865342B924316005CC1C1 /* CheckForEmpty.swift */; };
 		6DB526EF2B98670000110BDA /* ErrorHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DB526EE2B98670000110BDA /* ErrorHelper.swift */; };
+		6DB526F22B988ABE00110BDA /* NetworkSerivce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DB526F12B988ABE00110BDA /* NetworkSerivce.swift */; };
+		6DB526F52B98944200110BDA /* Notification.Name.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DB526F42B98944200110BDA /* Notification.Name.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -92,6 +94,8 @@
 		6D68652F2B922AAC005CC1C1 /* FlexibleTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexibleTextView.swift; sourceTree = "<group>"; };
 		6D6865342B924316005CC1C1 /* CheckForEmpty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckForEmpty.swift; sourceTree = "<group>"; };
 		6DB526EE2B98670000110BDA /* ErrorHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorHelper.swift; sourceTree = "<group>"; };
+		6DB526F12B988ABE00110BDA /* NetworkSerivce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkSerivce.swift; sourceTree = "<group>"; };
+		6DB526F42B98944200110BDA /* Notification.Name.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.Name.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -146,6 +150,7 @@
 		6D62C0F92B95E01E00868579 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				6DB526F02B988AB100110BDA /* NetworkService */,
 				6D62C1072B95FFF200868579 /* ChatService */,
 				6D62C0FD2B95E29500868579 /* APIService */,
 				6D62C0FA2B95E03A00868579 /* DBService */,
@@ -319,6 +324,7 @@
 		6D6865062B91DADF005CC1C1 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				6DB526F32B98942700110BDA /* Notification */,
 				6D62C0F62B95DEDF00868579 /* UIColor */,
 				6D62C0E62B95B15600868579 /* UITableView */,
 				6D6865182B91F908005CC1C1 /* BinaryFloatingPoint */,
@@ -483,6 +489,22 @@
 			path = ErrorHelper;
 			sourceTree = "<group>";
 		};
+		6DB526F02B988AB100110BDA /* NetworkService */ = {
+			isa = PBXGroup;
+			children = (
+				6DB526F12B988ABE00110BDA /* NetworkSerivce.swift */,
+			);
+			path = NetworkService;
+			sourceTree = "<group>";
+		};
+		6DB526F32B98942700110BDA /* Notification */ = {
+			isa = PBXGroup;
+			children = (
+				6DB526F42B98944200110BDA /* Notification.Name.swift */,
+			);
+			path = Notification;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -592,6 +614,7 @@
 			files = (
 				6D62C1182B9613BF00868579 /* ErrorAlert.swift in Sources */,
 				6D62C0E82B95B1AB00868579 /* UITableView+scrollToBottom.swift in Sources */,
+				6DB526F22B988ABE00110BDA /* NetworkSerivce.swift in Sources */,
 				6D6865282B921A92005CC1C1 /* SenderRole.swift in Sources */,
 				6D6865172B91DF4E005CC1C1 /* BinaryFloatingPoint.swift in Sources */,
 				6D68651B2B91FA90005CC1C1 /* ChatsTableViewCell.swift in Sources */,
@@ -612,6 +635,7 @@
 				6D68652A2B921AAD005CC1C1 /* ChatView.swift in Sources */,
 				6D6864FE2B91D0DE005CC1C1 /* Chat.swift in Sources */,
 				6D62C1062B95FE6900868579 /* UITableView+insertRow.swift in Sources */,
+				6DB526F52B98944200110BDA /* Notification.Name.swift in Sources */,
 				6DB526EF2B98670000110BDA /* ErrorHelper.swift in Sources */,
 				6D68652C2B921AB6005CC1C1 /* ChatViewController.swift in Sources */,
 				6D62C0F82B95DEEF00868579 /* UIColor+toHex.swift in Sources */,

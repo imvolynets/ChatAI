@@ -16,7 +16,7 @@ struct Constants {
     }
     
     struct API {
-        static let key = "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"
+        static let key = "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"
         static let gptModel = "gpt-3.5-turbo"
         static let url = "https://api.openai.com/v1/chat/completions"
     }
