@@ -90,13 +90,11 @@ extension ChatViewController {
                 case .satisfied:
                     print("conntected")
                     mainView.statusLabel.text = "chat_status_online".localized
-                    mainView.messageTextView.isEditable = true
                     mainView.sendButton.isEnabled = true
                     status = .satisfied
                 case .unsatisfied:
                     print("disconnected")
                     mainView.statusLabel.text = "chat_status_offline".localized
-                    mainView.messageTextView.isEditable = false
                     mainView.sendButton.isEnabled = false
                     mainView.dots.isHidden = true
                     status = .unsatisfied
@@ -106,9 +104,9 @@ extension ChatViewController {
                     break
                 }
             }
-            }
         }
     }
+}
 
 extension ChatViewController {
     private func setupButtons() {
@@ -131,9 +129,10 @@ extension ChatViewController {
 extension ChatViewController {
     @objc
     private func didTapBackButton() {
-        if let chat = chat, !chat.messages.isEmpty && chat.messages.last?.role != .assistant {
+        if let chat, !chat.messages.isEmpty && chat.messages.last?.role != .assistant {
             DBService.shared.removeUserMessage(chatId: chat.id)
         }
+        
         mainView.messageTextView.resignFirstResponder()
         navigationController?.popViewController(animated: true)
     }
@@ -301,7 +300,7 @@ extension ChatViewController: UITableViewDelegate, UITableViewDataSource {
                     }
                 
                 if self.status == .satisfied {
-                   return UIMenu(title: "", image: nil, children: [replyAction, copyAction])
+                    return UIMenu(title: "", image: nil, children: [replyAction, copyAction])
                 } else {
                     return UIMenu(title: "", image: nil, children: [copyAction])
                 }
@@ -412,6 +411,9 @@ extension ChatViewController {
                 DBService.shared.removeUserMessage(chatId: chat.id)
                 mainView.tableView.reloadChats()
             }
+        }
+        if rewrite {
+            mainView.tableView.scrollToBottom(animated: true)
         }
         isTyping = false
         mainView.dots.isHidden = true
